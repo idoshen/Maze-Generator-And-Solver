@@ -6,10 +6,6 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 
 - **Maze Generation:** Create randomized mazes using Kruskal's algorithm.
 - **Maze Solving:** Solve generated mazes using Depth-First Search, Breadth-First Search algorithms.
-## Features
-
-- **Maze Generation:** Create randomized mazes using Kruskal's algorithm.
-- **Maze Solving:** Solve generated mazes using Depth-First Search, Breadth-First Search algorithms.
 - **User-Friendly Interface:** Interact with the program seamlessly through the command-line interface.
   - **Maze Size:** Define the dimensions of the maze (rows and columns) to generate mazes of varying sizes.
   - **Wall Removal:** Specify the number of walls to remove after maze generation, increasing the number of possible solutions.

@@ -21,28 +21,17 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 
 ## How to Execute the Program
 
-1. Clone this repository to your local machine using:
+- **Run the program using:**
 
    ```bash
-   git clone https://github.com/idoshen/MazeGeneratorAndSolver.git
-
-2. Navigate to the project directory:
-   ```bash
-     cd maze-generator-solver
-
-3. Install the required dependencies.
-
-4. Run the program using:
-
-   ```bash
-     javac MazeGenerator.java
-     java MazeGenerator
+     javac MazeGeneratorAndSolver.java
+     java MazeGeneratorAndSolver
 
      or:
 
      javac MazeGeneratorExtended.java
      java MazeGeneratorExtended
 
-5. Follow the command-line prompts to customize maze generation and solving options.
+- **Follow the command-line prompts to customize maze generation and solving options.**
 
-6. Enjoy watching the maze solving process and exploring the created mazes!
+- **Enjoy watching the maze solving process and exploring the created mazes!**

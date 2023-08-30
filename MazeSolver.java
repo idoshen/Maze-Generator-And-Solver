@@ -1,94 +1,64 @@
 import java.util.*;
-// import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 
 public class MazeSolver {
 
-    
-    
     private static int MAZE_SIZE; // size of maze
     public static LinkedList<Integer> path = new LinkedList<>();
     private static int [] mark;
-    // private static boolean isFound = false;
-    
+
+    /**
+     * Constructs a MazeSolver object with the specified maze size.
+     * This constructor initializes a MazeSolver instance with the provided maze size.
+     * It also initializes the 'mark' array used for marking visited cells during solving.
+     *
+     * @param size The size of the maze (number of rows = size ; number of columns = size).
+     */
     public MazeSolver(int size){
         MazeSolver.MAZE_SIZE = size;
         mark = new int[MAZE_SIZE*MAZE_SIZE];
     }
 
+    /**
+     * Resets the MazeSolver to its initial state.
+     * This method resets the internal state of the MazeSolver, clearing any previous
+     * markings or data to prepare for solving a new maze.
+     */
     public void reset(){
         path = new LinkedList<>();
         mark = new int[MAZE_SIZE*MAZE_SIZE];
-        // isFound = false;
     }
 
-    public void solveDFS(int start, int end) throws InterruptedException {
-        DFS(start,end);   
-    }
-
-    public void solveBFS(int start, int end) throws InterruptedException {
-        BFS(start, end);
-    }
-
-    // public static void DFS(int source, int target) throws InterruptedException{ //using recursive DFS
-    //     if (mark[source] == 1 && mark[source] != target){
-    //         path.removeLast();
-    //         return;
-    //     }
-
-    //     mark[source] = 1;
-    //     // if (MazeGenerator.Gmaze.mainArr[source].neighbors.isEmpty()) return;
-    //     // Collections.sort(MazeGenerator.Gmaze.mainArr[source].neighbors);
-    //     // System.out.println(source + " -> " + MazeGenerator.Gmaze.mainArr[source].neighbors.toString());
-    //     for (int neighbor : MazeGenerator.Gmaze.mainArr[source].neighbors){
-    //         if (mark[neighbor] == 1){
-    //             continue;
-    //         }
-    //         if(neighbor == target){
-    //             path.add(neighbor);
-    //             isFound = true;
-    //             return;
-    //         }
-    //         else if (mark[neighbor] == 0) {
-    //             path.add(neighbor);
-    //             // paint(neighbor, Color.BLUE,0.25);
-    //             DFS(neighbor,target);
-    //             if (isFound){
-    //                 break;
-    //             }
-    //         }
-    //     }
-
-    //     if (path.getLast() != target){
-    //         // paint(path.removeLast(), Color.WHITE,0.3);
-    //         path.removeLast();
-    //     } 
-        
-    // }
-
-    public static void DFS(int source, int target) throws InterruptedException { //using stack
+    /**
+     * Solves the maze using Depth-First Search (DFS) algorithm.
+     * This method uses the Depth-First Search algorithm to find a path
+     * from the specified source cell to the specified target cell in the maze.
+     *
+     * @param source The index of the source cell.
+     * @param target The index of the target cell.
+     * @throws InterruptedException If the solving process is interrupted.
+     */
+    public static void solveDFS(int source, int target) throws InterruptedException { //using stack
         Stack<Integer> stack = new Stack<>();
         stack.push(source);
     
         while (!stack.isEmpty()) {
             int currentVertex = stack.peek();
-    
             mark[currentVertex] = 1;
-    
             boolean foundNeighbor = false;
+
             for (int neighbor : MazeGenerator.Gmaze.mainArr[currentVertex].neighbors) {
-                // System.out.println(neighbor);
+
                 if (mark[neighbor] == 1) {
                     continue;
                 }
                 if (neighbor == target) {
-                    // isFound = true;
                     return;
                 } else if (mark[neighbor] == 0) {
                     stack.push(neighbor);
                     path.add(neighbor);
                     foundNeighbor = true;
-                    // paint(currentVertex, neighbor, Color.BLUE);
+                    // MazePrinter.paint(currentVertex, neighbor, Color.BLUE, true);
                     break;
                 }
             }
@@ -96,16 +66,24 @@ public class MazeSolver {
             if (!foundNeighbor) {
                 stack.pop();
                 if (path.getLast() != target) {
-                    // int currentPoped = 
                     path.removeLast();
-                    // paint(path.getLast(), currentPoped, Color.WHITE);
-                    // path.removeLast();
+                    // int currentPoped = path.removeLast();
+                    // MazePrinter.paint(path.getLast(), currentPoped, Color.WHITE, true);
                 }
             }
         }
     }
 
-    public static void BFS(int source, int target) throws InterruptedException {
+    /**
+     * Solves the maze using Breadth-First Search (BFS) algorithm.
+     * This method uses the Breadth-First Search algorithm to find a path
+     * from the specified source cell to the specified target cell in the maze.
+     *
+     * @param source The index of the source cell.
+     * @param target The index of the target cell.
+     * @throws InterruptedException If the solving process is interrupted.
+     */
+    public static void solveBFS(int source, int target) throws InterruptedException {
         LinkedList<Integer> queue = new LinkedList<>();
         queue.add(source);
         mark[source] = 1;
@@ -115,13 +93,14 @@ public class MazeSolver {
             
             if (current == target) {
                 reconstructPath(source, target);
-                // isFound = true;
                 return;
             }
+
             for (int neighbor : MazeGenerator.Gmaze.mainArr[current].neighbors) {
                 if (mark[neighbor] == 0) {
                     if (neighbor != target){
-                        // paint(current, neighbor, Color.green);
+                        // MazePrinter.paint(current, neighbor, Color.green, true);
+
                     }
                     queue.add(neighbor);
                     mark[neighbor] = 1;
@@ -131,6 +110,15 @@ public class MazeSolver {
         }
     }
 
+    /**
+     * Reconstructs the path from the target cell to the source cell.
+     * This method reconstructs the path from the specified target cell to the specified source cell
+     * using the parent information stored in the maze graph.
+     *
+     * @param source The index of the source cell.
+     * @param target The index of the target cell.
+     * @throws InterruptedException If the process is interrupted.
+     */
     private static void reconstructPath(int source, int target) throws InterruptedException {
         int current = MazeGenerator.Gmaze.mainArr[target].parent;
         while (current != source) {
@@ -139,19 +127,14 @@ public class MazeSolver {
         }
     }
 
-
-    public static void paint(int previous, int index, Color color) throws InterruptedException{
-        StdDraw.setPenRadius(1.0/MAZE_SIZE);
-        StdDraw.setPenColor(color);
-        //StdDraw.filledCircle(index % MAZE_SIZE + 0.5, index / MAZE_SIZE + 0.5, 0.3);
-        // StdDraw.filledSquare(index % MAZE_SIZE + 0.5, index / MAZE_SIZE + 0.5, R);
-        StdDraw.line(index % MAZE_SIZE + 0.5, index / MAZE_SIZE + 0.5, previous % MAZE_SIZE + 0.5, previous / MAZE_SIZE + 0.5);
-        StdDraw.setPenRadius();
-
-    }
-
+    /**
+     * Retrieves the evaluated path generated during maze solving.
+     * This method returns the list of cell indices that represent the path
+     * generated during maze solving using the solver algorithms.
+     *
+     * @return A linked list of cell indices representing the evaluated path.
+     */
     public LinkedList<Integer> eval(){
-        // System.out.println(path);
         return path;
     }
 }

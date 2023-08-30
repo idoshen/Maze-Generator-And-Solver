@@ -34,14 +34,13 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 3. Install the required dependencies [list your dependencies and how to install them].
 
 4. Run the program using:
-    ```bash
-    javac MazeGenerator.java
-    java MazeGenerator
 
-  or:
-    ```bash
-    javac MazeGeneratorExtended.java
-    java MazeGeneratorExtended
+  ```bash
+  javac MazeGenerator.java
+  java MazeGenerator
+
+  javac MazeGeneratorExtended.java
+  java MazeGeneratorExtended
 
 5. Follow the command-line prompts to customize maze generation and solving options.
 

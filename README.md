@@ -25,8 +25,8 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 
 1. Clone this repository to your local machine using:
 
-  ```bash
-  git clone https://github.com/idoshen/maze-generator-solver.git
+   ```bash
+   git clone https://github.com/your-username/maze-generator-solver.git
 
 2. Navigate to the project directory:
    cd maze-generator-solver
@@ -35,12 +35,12 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 
 4. Run the program using:
 
-  ```bash
-  javac MazeGenerator.java
-  java MazeGenerator
-
-  javac MazeGeneratorExtended.java
-  java MazeGeneratorExtended
+   ```bash
+     javac MazeGenerator.java
+     java MazeGenerator
+     
+     javac MazeGeneratorExtended.java
+     java MazeGeneratorExtended
 
 5. Follow the command-line prompts to customize maze generation and solving options.
 

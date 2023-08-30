@@ -29,7 +29,8 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
    git clone https://github.com/idoshen/MazeGeneratorAndSolver.git
 
 2. Navigate to the project directory:
-   cd maze-generator-solver
+   ```bash
+     cd maze-generator-solver
 
 3. Install the required dependencies [list your dependencies and how to install them].
 

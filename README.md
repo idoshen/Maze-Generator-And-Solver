@@ -20,3 +20,30 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
 - **Real-Time Visualization:** Watch as the solving process unfolds and observe the shortest path being found.
 - **Educational Resource:** Annotated codebase and documentation help you understand maze algorithms and data structures.
 - **Extensible:** Easily add new algorithms or features thanks to the modular code structure.
+
+## How to Execute the Program
+
+1. Clone this repository to your local machine using:
+
+   ```bash
+   git clone https://github.com/idoshen/maze-generator-solver.git
+
+   Navigate to the project directory:
+
+2. Navigate to the project directory:
+   cd maze-generator-solver
+
+3. Install the required dependencies [list your dependencies and how to install them].
+
+4. Run the program using:
+    javac MazeGenerator.java
+    java MazeGenerator
+
+    or:
+
+    javac MazeGeneratorExtended.java
+    java MazeGeneratorExtended
+
+5. Follow the command-line prompts to customize maze generation and solving options.
+
+6. Enjoy watching the maze solving process and exploring the created mazes!

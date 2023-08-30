@@ -32,7 +32,7 @@ Welcome to the Maze Generator and Solver Program! This repository contains a [pr
    ```bash
      cd maze-generator-solver
 
-3. Install the required dependencies [list your dependencies and how to install them].
+3. Install the required dependencies.
 
 4. Run the program using:
 

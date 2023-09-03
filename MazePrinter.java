@@ -32,8 +32,8 @@ public class MazePrinter {
      * This function displays a visual representation of the maze, showing cells and walls.
      * It can be used for debugging and visualization purposes.
      */
-    public static void printMaze() {
-        StdDraw.setCanvasSize(900,900);
+    public static void printMaze(int canvasWidth, int canvasHeight) {
+        StdDraw.setCanvasSize(canvasWidth,canvasHeight);
 		StdDraw.setXscale(0, MAZE_SIZE);
 		StdDraw.setYscale(MAZE_SIZE, 0);
         StdDraw.line(0, 0, 0, MAZE_SIZE);

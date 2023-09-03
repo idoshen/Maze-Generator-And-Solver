@@ -28,8 +28,23 @@ public class MazeGeneratorAndSolver {
         System.out.println("Welcome to the Maze Solver Program!\n");
         Scanner reader = new Scanner(System.in);
         boolean continueLoop = true;
+        System.out.print("Please enter the canvas width (enter a positive integer that is bigger than 1): ");
+
+        int canvasWidth, canvasHeight;
+        do{
+            canvasWidth = reader.nextInt();
+            if (canvasWidth <= 1) System.out.print("Invalid input, please try again: ");
+        }while(canvasWidth <= 1);
+
+        System.out.print("Please enter the desired canvas height (enter a positive integer that is bigger than 1): ");
+
+        do{
+            canvasHeight = reader.nextInt();
+            if (canvasHeight <= 1) System.out.print("Invalid input, please try again: ");
+        }while(canvasHeight <= 1);
+
         while(continueLoop){
-            System.out.print("\u001B[31mPlease enter the desired size of the maze (enter a positive integer that is bigger than 1): \u001B[0m");
+            System.out.print("Please enter the desired size of the maze (enter a positive integer that is bigger than 1): ");
 
             do{
                 MAZE_SIZE = reader.nextInt();
@@ -45,17 +60,17 @@ public class MazeGeneratorAndSolver {
             
             
             System.out.println("Current number of walls: " + MazeGenerator.E.size());
-            System.out.print("\u001B[31mEnter the number of random walls to remove: \u001B[0m");
+            System.out.print("Enter the number of random walls to remove: ");
             MazeGenerator.removeRandomWalls(reader.nextInt());
             
             MazePrinter.init(MAZE_SIZE, MazeGenerator.E, MazeGenerator.RandomlyRemovedWalls);
-            MazePrinter.printMaze();
+            MazePrinter.printMaze(canvasWidth, canvasHeight);
             System.out.print("Constructing graph...");
             MazeGenerator.constructGraph();
             System.out.println(" Done!\n");
 
             
-            System.out.print("\u001B[31mInsert start index (0 - " + (MAZE_SIZE*MAZE_SIZE - 1) + "): \u001B[0m");
+            System.out.print("Insert start index (0 - " + (MAZE_SIZE*MAZE_SIZE - 1) + "): ");
             
             while (MazeGenerator.start < 0 || MazeGenerator.start >  MAZE_SIZE*MAZE_SIZE - 1){
                 try{
@@ -65,14 +80,14 @@ public class MazeGeneratorAndSolver {
                     MazeGenerator.start = -1;
                 }
                 if (MazeGenerator.start < 0 || MazeGenerator.start >  MAZE_SIZE*MAZE_SIZE - 1){
-                    System.out.print("\u001B[31mInvalid input, please try again: \u001B[0m");
+                    System.out.print("Invalid input, please try again: ");
                 }
             }
 
             StdDraw.setPenColor(Color.RED);
             StdDraw.filledSquare(MazeGenerator.start % MAZE_SIZE + 0.5, MazeGenerator.start / MAZE_SIZE + 0.5 , 0.5);
             StdDraw.show();
-            System.out.print("\u001B[31mInsert end index (0 - " + (MAZE_SIZE*MAZE_SIZE - 1) + "): \u001B[0m");
+            System.out.print("Insert end index (0 - " + (MAZE_SIZE*MAZE_SIZE - 1) + "): ");
 
             while (MazeGenerator.end < 0 || MazeGenerator.end >  MAZE_SIZE*MAZE_SIZE - 1){
                 try{
@@ -82,7 +97,7 @@ public class MazeGeneratorAndSolver {
                     MazeGenerator.end = -1;
                 }
                 if (MazeGenerator.end < 0 || MazeGenerator.end >  MAZE_SIZE*MAZE_SIZE - 1){
-                    System.out.print("\u001B[31mInvalid input, please try again: \u001B[0m");
+                    System.out.print("Invalid input, please try again: ");
                 }
             }
 
@@ -105,9 +120,9 @@ public class MazeGeneratorAndSolver {
 
             LinkedList<Integer> pathDFS = solver.eval();
 
-            System.out.println("\u001B[32mSolved using DFS in " + elapsedTime  + " milliseconds");
+            System.out.println("Solved using DFS in " + elapsedTime  + " milliseconds");
             MazePrinter.printSolution(pathDFS, Color.MAGENTA);
-            System.out.println("\u001B[31mPress Enter to continue to BFS.\u001B[32m");
+            System.out.println("Press Enter to continue to BFS.");
             enterPress();
 
             solver.reset();
@@ -120,7 +135,7 @@ public class MazeGeneratorAndSolver {
             LinkedList<Integer> pathBFS = solver.eval();
             System.out.println("Solved using BFS in " + elapsedTime  + " milliseconds");
             MazePrinter.printSolution(pathBFS, Color.BLUE);
-            System.out.println("\u001B[31mPress Enter to continue to DFS in the original maze.\u001B[32m");
+            System.out.println("Press Enter to continue to DFS in the original maze.");
             enterPress();
 
             MazeGenerator.addBackRandomWalls();
@@ -134,9 +149,9 @@ public class MazeGeneratorAndSolver {
             MazePrinter.printSolution(pathSingle, Color.RED);
 
             StdDraw.save("Maze.jpg");
-            System.out.println("\u001B[31mPress Enter to continue or Esc to exit.\u001B[32m");
+            System.out.println("Press Enter to continue or Esc to exit.");
             enterPress();
-            System.out.println("\u001B[34m--------------------------------------------\u001B[0m");
+            System.out.println("--------------------------------------------");
             System.out.println();
             MazeGenerator.restart();
         }

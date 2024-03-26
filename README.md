@@ -1,6 +1,6 @@
 # Maze Generator and Solver Program
 
-Welcome to the Maze Generator and Solver Program! This repository contains a [programming language]-based program that generates random mazes and solves them using various algorithms. Whether you're interested in learning about maze generation, solving strategies, or just having fun with mazes, this program has got you covered.
+Welcome to the Maze Generator and Solver Program! This repository contains a Java-based program that generates random mazes and solves them using various algorithms. Whether you're interested in learning about maze generation, solving strategies, or just having fun with mazes, this program has got you covered.
 
 ## Features
 

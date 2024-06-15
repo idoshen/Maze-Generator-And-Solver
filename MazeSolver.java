@@ -16,7 +16,7 @@ public class MazeSolver {
      */
     public MazeSolver(int size){
         MazeSolver.MAZE_SIZE = size;
-        mark = new int[MAZE_SIZE*MAZE_SIZE];
+        MazeSolver.mark = new int[MAZE_SIZE*MAZE_SIZE];
     }
 
     /**
@@ -38,7 +38,7 @@ public class MazeSolver {
      * @param target The index of the target cell.
      * @throws InterruptedException If the solving process is interrupted.
      */
-    public static void solveDFS(int source, int target) throws InterruptedException { //using stack
+    public static void solveDFS(int source, int target, Color visualizationColor, boolean printProcess) throws InterruptedException { //using stack
         Stack<Integer> stack = new Stack<>();
         stack.push(source);
     
@@ -58,7 +58,10 @@ public class MazeSolver {
                     stack.push(neighbor);
                     path.add(neighbor);
                     foundNeighbor = true;
-                    // MazePrinter.paint(currentVertex, neighbor, Color.BLUE, true);
+                    
+                    if (printProcess){
+                        MazePrinter.paint(currentVertex, neighbor, visualizationColor, true);
+                    }
                     break;
                 }
             }
@@ -66,9 +69,20 @@ public class MazeSolver {
             if (!foundNeighbor) {
                 stack.pop();
                 if (path.getLast() != target) {
-                    path.removeLast();
-                    // int currentPoped = path.removeLast();
-                    // MazePrinter.paint(path.getLast(), currentPoped, Color.WHITE, true);
+                    if (!printProcess){
+                        path.removeLast();
+                    } else {
+                        int currentPoped = path.removeLast();
+                        int lastNode;
+                        if (path.isEmpty()){
+                            lastNode = source;
+                        }else{
+                            lastNode = path.getLast();
+                        }
+                        // System.out.println("currentPoped: " + currentPoped);
+                        // System.out.println("path.getLast(): " + path.getLast());
+                        MazePrinter.paint(lastNode, currentPoped, Color.WHITE, true);
+                    }
                 }
             }
         }
@@ -83,7 +97,7 @@ public class MazeSolver {
      * @param target The index of the target cell.
      * @throws InterruptedException If the solving process is interrupted.
      */
-    public static void solveBFS(int source, int target) throws InterruptedException {
+    public static void solveBFS(int source, int target, boolean printProcess) throws InterruptedException {
         LinkedList<Integer> queue = new LinkedList<>();
         queue.add(source);
         mark[source] = 1;
@@ -98,8 +112,8 @@ public class MazeSolver {
 
             for (int neighbor : MazeGenerator.Gmaze.mainArr[current].neighbors) {
                 if (mark[neighbor] == 0) {
-                    if (neighbor != target){
-                        // MazePrinter.paint(current, neighbor, Color.green, true);
+                    if (neighbor != target && printProcess){
+                        MazePrinter.paint(current, neighbor, Color.green, true);
 
                     }
                     queue.add(neighbor);

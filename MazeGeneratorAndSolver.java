@@ -111,10 +111,13 @@ public class MazeGeneratorAndSolver {
             MazeSolver solver = new MazeSolver(MAZE_SIZE);
             solver.reset();
 
+            System.out.print("Visualize the solving process of DFS? (Y/N): ");
+            boolean printProcessDFS = reader.next().equalsIgnoreCase("Y");
+
             System.out.println("Solving the maze...\n");
             
             long startTime = System.currentTimeMillis();
-            MazeSolver.solveDFS(MazeGenerator.start,MazeGenerator.end);
+            MazeSolver.solveDFS(MazeGenerator.start,MazeGenerator.end, Color.blue, printProcessDFS);
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
 
@@ -127,8 +130,11 @@ public class MazeGeneratorAndSolver {
 
             solver.reset();
 
+            System.out.print("Visualize the solving process of BFS? (Y/N): ");
+            boolean printProcessBFS = reader.next().equalsIgnoreCase("Y");
+
             startTime = System.currentTimeMillis();
-            MazeSolver.solveBFS(MazeGenerator.start, MazeGenerator.end);
+            MazeSolver.solveBFS(MazeGenerator.start, MazeGenerator.end, printProcessBFS);
             endTime = System.currentTimeMillis();
             elapsedTime = endTime - startTime;
             
@@ -142,7 +148,10 @@ public class MazeGeneratorAndSolver {
             MazeGenerator.constructGraph();
 
             solver.reset();
-            MazeSolver.solveDFS(MazeGenerator.start, MazeGenerator.end);
+
+            System.out.print("Visualize the solving process of the original maze DFS? (Y/N): ");
+            boolean printProcessDFSOriginal = reader.next().equalsIgnoreCase("Y");
+            MazeSolver.solveDFS(MazeGenerator.start, MazeGenerator.end, Color.RED, printProcessDFSOriginal);
             
             LinkedList<Integer> pathSingle = solver.eval();
             System.out.println("Solved using DFS in the original maze");

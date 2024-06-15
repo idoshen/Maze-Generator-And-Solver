@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
+// import java.awt.Toolkit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,10 +41,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+// import javax.swing.JMenu;
+// import javax.swing.JMenuBar;
+// import javax.swing.JMenuItem;
+// import javax.swing.KeyStroke;
 
 
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
@@ -262,11 +262,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             frame = new JFrame();
             frame.addKeyListener(std);    // JLabel cannot get keyboard focus
             frame.setFocusTraversalKeysEnabled(false);  // allow VK_TAB with isKeyPressed()
-            frame.setResizable(false);
+            frame.setResizable(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            // closes all windows
             // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);      // closes only current window
             frame.setTitle(windowTitle);
-            frame.setJMenuBar(createMenuBar());
+            frame.pack(); // Adjust frame size to fit the content including decorations
+            frame.setLocationRelativeTo(null); // Center the frame on the screen
+
+            // Uncomment the following to turn off the menu bar
+            // frame.setJMenuBar(createMenuBar());
         }
 
         // BufferedImage stuff
@@ -310,20 +314,20 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         frame.setVisible(true);
     }
 
-    // create the menu bar
-    private static JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("File");
-        menuBar.add(menu);
-        JMenuItem menuItem1 = new JMenuItem(" Save...   ");
-        menuItem1.addActionListener(std);
-        // Java 11: use getMenuShortcutKeyMaskEx()
-        // Java 8:  use getMenuShortcutKeyMask()
-        menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
-        menu.add(menuItem1);
-        return menuBar;
-    }
+    // // create the menu bar
+    // private static JMenuBar createMenuBar() {
+    //     JMenuBar menuBar = new JMenuBar();
+    //     JMenu menu = new JMenu("File");
+    //     menuBar.add(menu);
+    //     JMenuItem menuItem1 = new JMenuItem(" Save...   ");
+    //     menuItem1.addActionListener(std);
+    //     // Java 11: use getMenuShortcutKeyMaskEx()
+    //     // Java 8:  use getMenuShortcutKeyMask()
+    //     menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+    //                             Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+    //     menu.add(menuItem1);
+    //     return menuBar;
+    // }
 
    /***************************************************************************
     *  Input validation helper methods.

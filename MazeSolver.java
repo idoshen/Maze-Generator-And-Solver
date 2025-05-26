@@ -125,6 +125,19 @@ public class MazeSolver {
     }
 
     /**
+     * Solves the maze using A* Search algorithm.
+     * This method uses the A* Search algorithm to find a path
+     * from the specified source cell to the specified target cell in the maze.
+     *
+     * @param source The index of the source cell.
+     * @param target The index of the target cell.
+     * @throws InterruptedException If the solving process is interrupted.
+     */
+    public static void solveAStar(int source, int target, boolean printProcess) throws InterruptedException {
+        // Implement A* Search algorithm
+    }
+
+    /**
      * Reconstructs the path from the target cell to the source cell.
      * This method reconstructs the path from the specified target cell to the specified source cell
      * using the parent information stored in the maze graph.

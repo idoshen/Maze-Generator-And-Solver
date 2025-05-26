@@ -85,7 +85,7 @@ public class MazeGeneratorAndSolver {
             }
 
             StdDraw.setPenColor(Color.RED);
-            StdDraw.filledSquare(MazeGenerator.start % MAZE_SIZE + 0.5, MazeGenerator.start / MAZE_SIZE + 0.5 , 0.5);
+            StdDraw.filledSquare(MazeGenerator.start % MAZE_SIZE + 0.5, MazeGenerator.start / MAZE_SIZE + 0.5 , 0.3);
             StdDraw.show();
             System.out.print("Insert end index (0 - " + (MAZE_SIZE*MAZE_SIZE - 1) + "): ");
 
@@ -102,7 +102,7 @@ public class MazeGeneratorAndSolver {
             }
 
             System.out.println();
-            StdDraw.filledSquare(MazeGenerator.end % MAZE_SIZE + 0.5, MazeGenerator.end / MAZE_SIZE + 0.5 , 0.5);
+            StdDraw.filledSquare(MazeGenerator.end % MAZE_SIZE + 0.5, MazeGenerator.end / MAZE_SIZE + 0.5 , 0.3);
             StdDraw.show();
 
             MazePrinter.start = MazeGenerator.start;
@@ -111,44 +111,69 @@ public class MazeGeneratorAndSolver {
             MazeSolver solver = new MazeSolver(MAZE_SIZE);
             solver.reset();
 
-            System.out.print("Visualize the solving process of DFS? (Y/N): ");
-            boolean printProcessDFS = reader.next().equalsIgnoreCase("Y");
+            // DFS START
+            // System.out.print("Visualize the solving process of DFS? (Y/N): ");
+            // boolean printProcessDFS = reader.next().equalsIgnoreCase("Y");
 
-            System.out.println("Solving the maze...\n");
+            // System.out.println("Solving the maze...\n");
             
-            long startTime = System.currentTimeMillis();
-            MazeSolver.solveDFS(MazeGenerator.start,MazeGenerator.end, Color.blue, printProcessDFS);
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
+            // long startTime = System.currentTimeMillis();
+            // MazeSolver.solveDFS(MazeGenerator.start,MazeGenerator.end, Color.blue, printProcessDFS);
+            // long endTime = System.currentTimeMillis();
+            // long elapsedTime = endTime - startTime;
 
-            LinkedList<Integer> pathDFS = solver.eval();
+            // LinkedList<Integer> pathDFS = solver.eval();
 
-            System.out.println("Solved using DFS in " + elapsedTime  + " milliseconds");
-            MazePrinter.printSolution(pathDFS, Color.MAGENTA);
-            System.out.println("Press Enter to continue to BFS.");
-            enterPress();
+            // System.out.println("Solved using DFS in " + elapsedTime  + " milliseconds");
+            // MazePrinter.printSolution(pathDFS, Color.MAGENTA);
 
-            solver.reset();
+            // DFS END
 
+            // solver.reset();
+            
+            //BFS START
             System.out.print("Visualize the solving process of BFS? (Y/N): ");
             boolean printProcessBFS = reader.next().equalsIgnoreCase("Y");
 
-            startTime = System.currentTimeMillis();
+            // startTime = System.currentTimeMillis();
             MazeSolver.solveBFS(MazeGenerator.start, MazeGenerator.end, printProcessBFS);
-            endTime = System.currentTimeMillis();
-            elapsedTime = endTime - startTime;
+            // endTime = System.currentTimeMillis();
+            // elapsedTime = endTime - startTime;
             
             LinkedList<Integer> pathBFS = solver.eval();
-            System.out.println("Solved using BFS in " + elapsedTime  + " milliseconds");
+            // System.out.println("Solved using BFS in " + elapsedTime  + " milliseconds");
             MazePrinter.printSolution(pathBFS, Color.BLUE);
-            System.out.println("Press Enter to continue to DFS in the original maze.");
-            enterPress();
+            // BFS END
+            
+            // System.out.println("Press Enter to continue to A*.");
+            // enterPress();
 
-            MazeGenerator.addBackRandomWalls();
-            MazeGenerator.constructGraph();
+            // solver.reset();
+            
+
+            // A* START
+            // System.out.print("Visualize the solving process of A*? (Y/N): ");
+            // boolean printProcessAStar = reader.next().equalsIgnoreCase("Y");
+
+            // startTime = System.currentTimeMillis();
+            // MazeSolver.solveAStar(MazeGenerator.start, MazeGenerator.end, printProcessAStar);
+            // endTime = System.currentTimeMillis();
+            // elapsedTime = endTime - startTime;
+
+            // LinkedList<Integer> pathAStar = solver.eval();
+            // System.out.println("Solved using A* in " + elapsedTime  + " milliseconds");
+            // MazePrinter.printSolution(pathAStar, Color.GREEN);
+
+            // System.out.println("Press Enter to continue to DFS in the original maze.");
+            // enterPress();
+
+            // MazeGenerator.addBackRandomWalls();
+            // MazeGenerator.constructGraph();
 
             solver.reset();
+            // A* END
 
+            // DFS ORIGINAL MAZE START
             System.out.print("Visualize the solving process of the original maze DFS? (Y/N): ");
             boolean printProcessDFSOriginal = reader.next().equalsIgnoreCase("Y");
             MazeSolver.solveDFS(MazeGenerator.start, MazeGenerator.end, Color.RED, printProcessDFSOriginal);
@@ -156,6 +181,7 @@ public class MazeGeneratorAndSolver {
             LinkedList<Integer> pathSingle = solver.eval();
             System.out.println("Solved using DFS in the original maze");
             MazePrinter.printSolution(pathSingle, Color.RED);
+            // DFS ORIGINAL MAZE END
 
             StdDraw.save("Maze.jpg");
             System.out.println("Press Enter to continue or Esc to exit.");

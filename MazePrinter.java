@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 
 /**
@@ -34,6 +35,7 @@ public class MazePrinter {
      */
     public static void printMaze(int canvasWidth, int canvasHeight) {
         StdDraw.setCanvasSize(canvasWidth,canvasHeight);
+        // StdDraw.setPenRadius(0.02);
 		StdDraw.setXscale(0, MAZE_SIZE);
 		StdDraw.setYscale(MAZE_SIZE, 0);
         StdDraw.line(0, 0, 0, MAZE_SIZE);
@@ -163,6 +165,9 @@ public class MazePrinter {
 
         if (toShow){
             StdDraw.show();
+            // TimeUnit.MILLISECONDS.sleep(15);
         }
+
+        
     }
 }

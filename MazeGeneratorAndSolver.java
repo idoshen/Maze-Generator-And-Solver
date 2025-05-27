@@ -163,7 +163,8 @@ public class MazeGeneratorAndSolver {
             LinkedList<Integer> pathAStar = solver.eval();
             // System.out.println("Solved using A* in " + elapsedTime  + " milliseconds");
             MazePrinter.printSolution(pathAStar, Color.GREEN);
-
+            // A* END
+            
             System.out.println("Press Enter to continue to DFS in the original maze.");
             enterPress();
 
@@ -171,7 +172,7 @@ public class MazeGeneratorAndSolver {
             MazeGenerator.constructGraph();
 
             solver.reset();
-            // A* END
+            
 
             // DFS ORIGINAL MAZE START
             System.out.print("Visualize the solving process of the original maze DFS? (Y/N): ");

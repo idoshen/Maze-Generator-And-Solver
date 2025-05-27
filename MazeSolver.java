@@ -133,18 +133,16 @@ public class MazeSolver {
      * @throws InterruptedException If the solving process is interrupted.
      */
     public static void solveAStar(int source, int target, boolean printProcess) throws InterruptedException {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(source);
-
-        int[] gScore = new int[MAZE_SIZE * MAZE_SIZE]; // cost from start to current node
-        int[] fScore = new int[MAZE_SIZE * MAZE_SIZE]; // estimated cost from start to target through current node
+        float[] gScore = new float[MAZE_SIZE * MAZE_SIZE]; // cost from start to current node
+        float[] fScore = new float[MAZE_SIZE * MAZE_SIZE]; // estimated cost from start to target through current node
 
         Arrays.fill(gScore, Integer.MAX_VALUE);
         Arrays.fill(fScore, Integer.MAX_VALUE);
         gScore[source] = 0;
-        fScore[source] = heuristic(source, target);
+        fScore[source] = manhattanHeuristic(source, target);
 
-        PriorityQueue<Integer> openSet = new PriorityQueue<>(Comparator.comparingInt(a -> fScore[a]));
+        PriorityQueue<Integer> openSet = new PriorityQueue<>(Comparator.comparingDouble(a -> fScore[a]));
+
         openSet.add(source);
         mark[source] = 1;
 
@@ -157,11 +155,11 @@ public class MazeSolver {
 
             for (int neighbor : MazeGenerator.Gmaze.mainArr[current].neighbors) {
                 if (mark[neighbor] == 0) {
-                    int tentativeGScore = gScore[current] + 1;
+                    float tentativeGScore = gScore[current] + 1;
                     if (tentativeGScore < gScore[neighbor]) {
                         MazeGenerator.Gmaze.mainArr[neighbor].parent = current; // Set parent for backtracking
                         gScore[neighbor] = tentativeGScore;
-                        fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, target);
+                        fScore[neighbor] = gScore[neighbor] + manhattanHeuristic(neighbor, target);
                         if (!openSet.contains(neighbor)) {
                             openSet.add(neighbor);
                             mark[neighbor] = 1;
@@ -185,13 +183,22 @@ public class MazeSolver {
      * @param b The index of the second cell.
      * @return The heuristic value (Manhattan distance) between the two cells.
      */
-    private static int heuristic(int a, int b) {
+    private static int manhattanHeuristic(int a, int b) {
         // Using Manhattan distance as the heuristic
         int ax = a % MAZE_SIZE;
         int ay = a / MAZE_SIZE;
         int bx = b % MAZE_SIZE;
         int by = b / MAZE_SIZE;
         return Math.abs(ax - bx) + Math.abs(ay - by);
+    }
+
+    private static float euclideanHeuristic(int a, int b) {
+        // Using Euclidean distance as the heuristic
+        int ax = a % MAZE_SIZE;
+        int ay = a / MAZE_SIZE;
+        int bx = b % MAZE_SIZE;
+        int by = b / MAZE_SIZE;
+        return (float) Math.sqrt(Math.pow(ax - bx, 2) + Math.pow(ay - by, 2));
     }
 
     /**

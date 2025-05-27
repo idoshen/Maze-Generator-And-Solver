@@ -114,7 +114,6 @@ public class MazeSolver {
                 if (mark[neighbor] == 0) {
                     if (neighbor != target && printProcess){
                         MazePrinter.paint(current, neighbor, Color.green, true);
-
                     }
                     queue.add(neighbor);
                     mark[neighbor] = 1;
@@ -134,7 +133,65 @@ public class MazeSolver {
      * @throws InterruptedException If the solving process is interrupted.
      */
     public static void solveAStar(int source, int target, boolean printProcess) throws InterruptedException {
-        // Implement A* Search algorithm
+        Stack<Integer> stack = new Stack<>();
+        stack.push(source);
+
+        int[] gScore = new int[MAZE_SIZE * MAZE_SIZE]; // cost from start to current node
+        int[] fScore = new int[MAZE_SIZE * MAZE_SIZE]; // estimated cost from start to target through current node
+
+        Arrays.fill(gScore, Integer.MAX_VALUE);
+        Arrays.fill(fScore, Integer.MAX_VALUE);
+        gScore[source] = 0;
+        fScore[source] = heuristic(source, target);
+
+        PriorityQueue<Integer> openSet = new PriorityQueue<>(Comparator.comparingInt(a -> fScore[a]));
+        openSet.add(source);
+        mark[source] = 1;
+
+        while (!openSet.isEmpty()) {
+            int current = openSet.poll();
+            if (current == target) {
+                reconstructPath(source, target);
+                return;
+            }
+
+            for (int neighbor : MazeGenerator.Gmaze.mainArr[current].neighbors) {
+                if (mark[neighbor] == 0) {
+                    int tentativeGScore = gScore[current] + 1;
+                    if (tentativeGScore < gScore[neighbor]) {
+                        MazeGenerator.Gmaze.mainArr[neighbor].parent = current; // Set parent for backtracking
+                        gScore[neighbor] = tentativeGScore;
+                        fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, target);
+                        if (!openSet.contains(neighbor)) {
+                            openSet.add(neighbor);
+                            mark[neighbor] = 1;
+                        }
+                    }
+                    if (printProcess){
+                        MazePrinter.paint(current, neighbor, Color.MAGENTA, true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculates the heuristic value for A* Search algorithm.
+     * This method computes the
+     * heuristic value between two cells in the maze,
+     * which is used to guide the A* Search algorithm towards the target.
+     * The heuristic is calculated using the Manhattan distance formula.
+     * @param a The index of the first cell.
+     * @param b The index of the second cell.
+     * @return The heuristic value (Manhattan distance) between the two cells.
+     */
+    private static int heuristic(int a, int b) {
+        // Using Manhattan distance as the heuristic
+        int ax = a % MAZE_SIZE;
+        int ay = a / MAZE_SIZE;
+        int bx = b % MAZE_SIZE;
+        int by = b / MAZE_SIZE;
+        return Math.abs(ax - bx) + Math.abs(ay - by);
     }
 
     /**

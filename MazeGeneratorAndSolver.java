@@ -148,27 +148,27 @@ public class MazeGeneratorAndSolver {
             // System.out.println("Press Enter to continue to A*.");
             // enterPress();
 
-            // solver.reset();
+            solver.reset();
             
 
             // A* START
-            // System.out.print("Visualize the solving process of A*? (Y/N): ");
-            // boolean printProcessAStar = reader.next().equalsIgnoreCase("Y");
+            System.out.print("Visualize the solving process of A*? (Y/N): ");
+            boolean printProcessAStar = reader.next().equalsIgnoreCase("Y");
 
             // startTime = System.currentTimeMillis();
-            // MazeSolver.solveAStar(MazeGenerator.start, MazeGenerator.end, printProcessAStar);
+            MazeSolver.solveAStar(MazeGenerator.start, MazeGenerator.end, printProcessAStar);
             // endTime = System.currentTimeMillis();
             // elapsedTime = endTime - startTime;
 
-            // LinkedList<Integer> pathAStar = solver.eval();
+            LinkedList<Integer> pathAStar = solver.eval();
             // System.out.println("Solved using A* in " + elapsedTime  + " milliseconds");
-            // MazePrinter.printSolution(pathAStar, Color.GREEN);
+            MazePrinter.printSolution(pathAStar, Color.GREEN);
 
-            // System.out.println("Press Enter to continue to DFS in the original maze.");
-            // enterPress();
+            System.out.println("Press Enter to continue to DFS in the original maze.");
+            enterPress();
 
-            // MazeGenerator.addBackRandomWalls();
-            // MazeGenerator.constructGraph();
+            MazeGenerator.addBackRandomWalls();
+            MazeGenerator.constructGraph();
 
             solver.reset();
             // A* END
